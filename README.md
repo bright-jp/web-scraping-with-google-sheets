@@ -1,184 +1,184 @@
-# Extracting Web Data with Google Sheets
+# Google SheetsでWebデータを抽出する
 
-[![Bright Data Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.com/)
+[![Bright Data Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.jp/)
 
-Learn how to leverage Google Sheets' [IMPORTXML](https://support.google.com/docs/answer/3093342?hl=en) and [IMPORTHTML](https://support.google.com/docs/answer/3093339?hl=en) functions to extract valuable data from websites without coding experience.
+コーディング経験がなくても、Google Sheetsの[IMPORTXML](https://support.google.com/docs/answer/3093342?hl=en)および[IMPORTHTML](https://support.google.com/docs/answer/3093339?hl=en)関数を活用して、Webサイトから価値あるデータを抽出する方法を学びます。
 
-- [Benefits of Google Sheets for Web Scraping](#benefits-of-google-sheets-for-web-scraping)
-- [Creating Your First Scraping Sheet](#creating-your-first-scraping-sheet)
-- [Essential Google Sheets Scraping Functions](#essential-google-sheets-scraping-functions)
-  - [Using IMPORTXML](#using-importxml)
-  - [Working with IMPORTHTML](#working-with-importhtml)
-- [Step-by-Step Data Extraction Guide](#step-by-step-data-extraction-guide)
-- [Limitations and Advanced Scenarios](#limitations-and-advanced-scenarios)
-- [Setting Up Automatic Data Updates](#setting-up-automatic-data-updates)
-- [Optimizing Your Scraping Process](#optimizing-your-scraping-process)
-- [Next Steps](#next-steps)
+- [Google SheetsをWebスクレイピングに使うメリット](#benefits-of-google-sheets-for-web-scraping)
+- [最初のスクレイピング用シートを作成する](#creating-your-first-scraping-sheet)
+- [必須のGoogle Sheetsスクレイピング関数](#essential-google-sheets-scraping-functions)
+  - [IMPORTXMLの使用](#using-importxml)
+  - [IMPORTHTMLの使用](#working-with-importhtml)
+- [ステップバイステップのデータ抽出ガイド](#step-by-step-data-extraction-guide)
+- [制限事項と高度なシナリオ](#limitations-and-advanced-scenarios)
+- [自動データ更新の設定](#setting-up-automatic-data-updates)
+- [スクレイピングプロセスの最適化](#optimizing-your-scraping-process)
+- [次のステップ](#next-steps)
 
-## Benefits of Google Sheets for Web Scraping
+## Google SheetsをWebスクレイピングに使うメリット
 
-Google Sheets offers a surprisingly powerful solution for data extraction without requiring programming knowledge. It excels at gathering structured and tabular data from websites, allowing you to immediately analyze or visualize what you collect. This makes it perfect for various use cases including:
+Google Sheetsは、プログラミング知識を必要とせずにデータ抽出を行える、驚くほど強力なソリューションを提供します。Webサイトから構造化データや表形式データを収集するのが得意で、収集した内容をすぐに分析・可視化できます。これにより、次のようなさまざまなユースケースに最適です。
 
-* Monitoring product pricing on e-commerce platforms
-* Building contact lists from online directories
-* Tracking engagement metrics across social channels
-* Gathering public sentiment for marketing analysis
+* ECプラットフォームでの商品の価格監視
+* オンラインディレクトリからの連絡先リスト作成
+* ソーシャルチャネル全体のエンゲージメント指標の追跡
+* マーケティング分析のための公開センチメントの収集
 
-The data you collect can be easily exported to CSV or other formats for integration with your existing systems.
+収集したデータは、CSVなどの形式に簡単にエクスポートして、既存システムと連携できます。
 
-## Creating Your First Scraping Sheet
+## 最初のスクレイピング用シートを作成する
 
-To begin, navigate to [https://sheets.google.com](https://sheets.google.com/) and start a new spreadsheet by selecting the **+** icon:
+開始するには、[https://sheets.google.com](https://sheets.google.com/) に移動し、**+** アイコンを選択して新しいスプレッドシートを作成します。
 
 ![Google Sheets new document creation](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-24-1024x241.png)
 
-Let's use the [**Books to Scrape**](https://books.toscrape.com/catalogue/category/books/default_15/index.html) demo site, which is designed specifically for learning web scraping techniques.
+Webスクレイピング技術の学習用に特別に設計されたデモサイトである、[**Books to Scrape**](https://books.toscrape.com/catalogue/category/books/default_15/index.html) を使用しましょう。
 
-## Essential Google Sheets Scraping Functions
+## 必須のGoogle Sheetsスクレイピング関数
 
-Google Sheets includes several powerful [formulas](https://support.google.com/docs/table/25273?hl=en) that enable data extraction directly within your spreadsheet. Let's explore the two most valuable functions for web scraping.
+Google Sheetsには、スプレッドシート内で直接データ抽出を可能にする強力な[数式](https://support.google.com/docs/table/25273?hl=en)がいくつか用意されています。ここでは、Webスクレイピングに最も有用な2つの関数を見ていきます。
 
-### Using IMPORTXML
+### IMPORTXMLの使用
 
-The [`IMPORTXML`](https://support.google.com/docs/answer/3093342?sjid=2557491900941403739-NC) function pulls structured data into your spreadsheet using XPath selectors. It works with XML, HTML, CSV, and TSV formats, following this structure:
+[`IMPORTXML`](https://support.google.com/docs/answer/3093342?sjid=2557491900941403739-NC) 関数は、XPathセレクターを使用して構造化データをスプレッドシートへ取り込みます。XML、HTML、CSV、TSV形式に対応しており、次の構造に従います。
 
 ```
 =IMPORTXML(url, xpath_query)
 ```
 
-This function retrieves data from any web URL by using [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath) to target specific elements. For example, to extract the main heading from our demo site, enter this formula:
+この関数は、[XPath](https://developer.mozilla.org/en-US/docs/Web/XPath) を使って特定の要素をターゲットにすることで、任意のWeb URLからデータを取得します。たとえば、デモサイトからメイン見出しを抽出するには、次の数式を入力します。
 
 ```
 =IMPORTXML("https://books.toscrape.com/catalogue/category/books/default_15/index.html", "//h1")
 ```
 
-The first time you use this function, Google Sheets will prompt for permission to connect to external sites:
+この関数を初めて使用すると、Google Sheetsが外部サイトへ接続するための権限を求めます。
 
 ![Google Sheets access permission dialog](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-25-1024x272.png)
 
-After clicking **Allow access**, the cell will display "Default" - the H1 heading content from the target page.
+**Allow access** をクリックすると、セルにはターゲットページのH1見出し内容である「Default」が表示されます。
 
-### Working with IMPORTHTML
+### IMPORTHTMLの使用
 
-The [`IMPORTHTML`](https://support.google.com/docs/answer/3093339?sjid=2557491900941403739-NC) function specializes in extracting tables and lists from web pages, using this format:
+[`IMPORTHTML`](https://support.google.com/docs/answer/3093339?sjid=2557491900941403739-NC) 関数は、次の形式でWebページからテーブルやリストを抽出することに特化しています。
 
 ```
 =IMPORTHTML(url, query, index)
 ```
 
-This function extracts data based on the `query` parameter (either "table" or "list") and the `index` number (starting at 1) to specify which table or list to retrieve. For instance, to extract the book listing from our example site:
+この関数は、`query` パラメータ（"table" または "list"）と、取得するテーブルまたはリストを指定する `index` 番号（1から開始）に基づいてデータを抽出します。たとえば、例のサイトから書籍一覧を抽出するには次のとおりです。
 
 ```
 =IMPORTHTML("https://books.toscrape.com/catalogue/category/books/default_15/index.html", "list", 2)
 ```
 
-This formula will populate your spreadsheet with the complete book list:
+この数式により、スプレッドシートに書籍リスト全体が入力されます。
 
 ![Imported book list in Google Sheets](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-26-1024x557.png)
 
-## Step-by-Step Data Extraction Guide
+## ステップバイステップのデータ抽出ガイド
 
-Now that you understand the basics, let's create a more structured extraction process. We'll capture book titles, prices, and ratings from the Books to Scrape website using IMPORTXML.
+基本を理解したところで、より構造化された抽出プロセスを作成していきます。IMPORTXMLを使用して、Books to Scrape Webサイトから書籍タイトル、価格、評価を取得します。
 
-First, set up your spreadsheet with appropriate column headers:
+まず、適切な列見出しをスプレッドシートに設定します。
 
 ![Google Sheets with column headers](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-27-1024x425.png)
 
-To locate the correct XPath for book titles, use your browser's developer tools:
+書籍タイトルの正しいXPathを特定するには、ブラウザの開発者ツールを使用します。
 
-1. Right-click on the first book title
-2. Select **Inspect**
-3. Right-click on the highlighted HTML element
-4. Choose **Copy > XPath**
+1. 最初の書籍タイトルを右クリックします
+2. **Inspect** を選択します
+3. ハイライトされたHTML要素を右クリックします
+4. **Copy > XPath** を選択します
 
 ![Finding XPath using browser developer tools](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-28-1024x498.png)
 
-The raw XPath for a single book title might look like this:
+単一の書籍タイトルに対する生のXPathは、次のようになります。
 
 ```
 //*[@id="default"]/div/div/div/div/section/div[2]/ol/li[1]/article/h3/a
 ```
 
-To extract all book titles, you'll need to modify this XPath:
+すべての書籍タイトルを抽出するには、このXPathを修正する必要があります。
 
-* Replace `li[1]` with just `li` to target all list items
-* Change `a` to `a/@title` to capture the full title attribute
-* Convert double quotes to single quotes within the XPath
+* すべてのリスト項目をターゲットにするために、`li[1]` を `li` に置き換えます
+* タイトル属性全体を取得するために、`a` を `a/@title` に変更します
+* XPath内のダブルクォートをシングルクォートに変換します
 
-Enter this optimized formula in cell A2:
+この最適化した数式をセルA2に入力します。
 
 ```
 =IMPORTXML("https://books.toscrape.com/catalogue/category/books/default_15/index.html", "//*[@id='default']/div/div/div/div/section/div[2]/ol/li/article/h3/a/@title")
 ```
 
-Your sheet will populate with all book titles:
+シートにはすべての書籍タイトルが入力されます。
 
 ![Google Sheets showing imported book titles](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-29-1024x557.png)
 
-Next, add the pricing data formula to cell B2:
+次に、価格データの数式をセルB2に追加します。
 
 ```
 =IMPORTXML("https://books.toscrape.com/catalogue/category/books/default_15/index.html", "//*[@id='default']/div/div/div/div/section/div[2]/ol/li/article/div[2]/p[1]")
 ```
 
-Finally, capture the ratings in cell C2:
+最後に、セルC2で評価を取得します。
 
 ```
 =IMPORTXML("https://books.toscrape.com/", "//*[@id='default']/div/div/div/div/section/div[2]/ol/li/article/p/@class")
 ```
 
-The completed spreadsheet will display all three data points:
+完成したスプレッドシートには、3つのデータポイントがすべて表示されます。
 
 ![Complete spreadsheet with book data](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-30-1024x557.png)
 
-Note that the ratings appear as `star-rating Three` or `star-rating Four`. Unfortunately, since Google Sheets doesn't support [XPath 2.0](https://www.w3.org/TR/xpath20/), you can't transform this data directly in the formula.
+評価が `star-rating Three` や `star-rating Four` として表示される点に注意してください。残念ながら、Google Sheetsは[XPath 2.0](https://www.w3.org/TR/xpath20/)をサポートしていないため、数式内でこのデータを直接変換できません。
 
-## Limitations and Advanced Scenarios
+## 制限事項と高度なシナリオ
 
-While Google Sheets works well for basic scraping, it has significant limitations with:
+Google Sheetsは基本的なスクレイピングには有効ですが、次の点で大きな制限があります。
 
-**Dynamic Content**: If a website loads data via JavaScript after the initial page render, Google Sheets formulas won't capture this content since they only process static HTML. For dynamic sites, you'll need a Python script with a headless browser.
+**Dynamic Content**: Webサイトが初期レンダリング後にJavaScript経由でデータを読み込む場合、Google Sheetsの数式は静的HTMLのみを処理するため、このコンテンツを取得できません。動的サイトの場合は、ヘッドレスブラウザを使ったPythonスクリプトが必要です。
 
-**Pagination**: Google Sheets can't automatically navigate through multiple pages. You would need to manually update URLs and formulas for each page, which quickly becomes impractical.
+**Pagination**: Google Sheetsは複数ページを自動的に巡回できません。各ページごとにURLと数式を手動で更新する必要があり、すぐに非現実的になります。
 
-**Interactive Elements**: Websites requiring clicks, scrolling, or form submissions before displaying data are beyond Google Sheets' capabilities.
+**Interactive Elements**: データ表示前にクリック、スクロール、フォーム送信が必要なWebサイトは、Google Sheetsの機能範囲を超えています。
 
-For these advanced scenarios, consider Bright Data's comprehensive scraping solutions, which handle proxies, CAPTCHAs, and user agent rotation automatically.
+これらの高度なシナリオでは、プロキシ、CAPTCHA、ユーザーエージェントのローテーションを自動的に処理する、Bright Dataの包括的なスクレイピングソリューションを検討してください。
 
-## Setting Up Automatic Data Updates
+## 自動データ更新の設定
 
-For price tracking or monitoring applications, you'll want your data to refresh automatically.
+価格追跡や監視用途では、データを自動的に更新したいはずです。
 
-To configure update frequency in Google Sheets:
+Google Sheetsで更新頻度を設定するには、次の手順です。
 
-1. Click **File > Settings**
-2. Navigate to the **Calculation** tab
-3. Set your preferred recalculation interval
+1. **File > Settings** をクリックします
+2. **Calculation** タブに移動します
+3. 希望する再計算間隔を設定します
 
 ![Google Sheets settings menu](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-31-1024x558.png)
 
-You can choose between one-minute or one-hour refresh intervals:
+1分または1時間の更新間隔を選択できます。
 
 ![Google Sheets recalculation settings](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-32-1024x619.png)
 
-While Google Sheets limits you to these two refresh options, dedicated scraping solutions like Bright Data provide more flexible scheduling and deliver data in multiple formats (JSON, CSV, Parquet), making them ideal for enterprise-scale data collection.
+Google Sheetsではこの2つの更新オプションに制限されますが、Bright Dataのような専用スクレイピングソリューションでは、より柔軟なスケジューリングが可能で、複数形式（JSON、CSV、Parquet）でデータを提供できるため、エンタープライズ規模のデータ収集に最適です。
 
-## Optimizing Your Scraping Process
+## スクレイピングプロセスの最適化
 
-To improve scraping efficiency and reduce potential issues:
+スクレイピング効率を高め、潜在的な問題を減らすために、次の点を改善してください。
 
-**Be Selective**: Only extract the specific data points you need, avoiding unnecessary load on the target website.
+**Be Selective**: 必要なデータポイントだけを抽出し、ターゲットWebサイトへの不要な負荷を避けます。
 
-**Implement Delays**: For larger projects, add pauses between requests and schedule during off-hours to prevent triggering rate limits or IP blocks.
+**Implement Delays**: 大規模プロジェクトでは、リクエスト間に待機を入れ、オフピーク時間にスケジュールして、レート制限やIPブロックの発生を防ぎます。
 
-**Handle Anti-Scraping Measures**: Many sites use CAPTCHA challenges to detect automated access. For sensitive scraping tasks, consider using [proxies with automatic IP rotation](https://brightdata.com/solutions/rotating-proxies).
+**Handle Anti-Scraping Measures**: 多くのサイトは自動アクセスを検出するためにCAPTCHAチャレンジを使用しています。センシティブなスクレイピングタスクでは、[自動IPローテーション付きプロキシ](https://brightdata.jp/solutions/rotating-proxies)の使用を検討してください。
 
-**Review Legal Requirements**: Always check the website's terms of service and [`robots.txt`](https://brightdata.com/blog/how-tos/robots-txt-for-web-scraping-guide) file before scraping.
+**Review Legal Requirements**: スクレイピングの前に、Webサイトの利用規約と [`robots.txt`](https://brightdata.jp/blog/how-tos/robots-txt-for-web-scraping-guide) ファイルを必ず確認してください。
 
-## Next Steps
+## 次のステップ
 
-Google Sheets provides an excellent entry point for web scraping, especially for static websites with structured data.
+Google Sheetsは、特に構造化データを持つ静的Webサイトに対して、Webスクレイピングの優れた入門手段を提供します。
 
-For more complex requirements involving dynamic content, large volumes, or sophisticated [anti-scraping measures](https://brightdata.com/blog/web-data/anti-scraping-techniques), [Bright Data's Web Scraper API](https://brightdata.com/products/web-scraper) offers a scalable solution with built-in handling for proxies, CAPTCHAs, and various output formats.
+動的コンテンツ、大量データ、または高度な[アンチスクレイピング対策](https://brightdata.jp/blog/web-data/anti-scraping-techniques)を伴うより複雑な要件には、[Bright Data's Web Scraper API](https://brightdata.jp/products/web-scraper) が、プロキシ、CAPTCHA、さまざまな出力形式の組み込み処理を備えたスケーラブルなソリューションを提供します。
 
-Sign up for a free trial today and start optimizing your data workflows!
+今すぐ無料トライアルに登録して、データワークフローの最適化を始めましょう！
