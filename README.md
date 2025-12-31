@@ -1,6 +1,6 @@
 # Google SheetsでWebデータを抽出する
 
-[![Bright Data Promo](https://github.com/luminati-io/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.jp/)
+[![Bright Data Promo](https://github.com/bright-jp/LinkedIn-Scraper/raw/main/Proxies%20and%20scrapers%20GitHub%20bonus%20banner.png)](https://brightdata.jp/)
 
 コーディング経験がなくても、Google Sheetsの[IMPORTXML](https://support.google.com/docs/answer/3093342?hl=en)および[IMPORTHTML](https://support.google.com/docs/answer/3093339?hl=en)関数を活用して、Webサイトから価値あるデータを抽出する方法を学びます。
 
@@ -30,7 +30,7 @@ Google Sheetsは、プログラミング知識を必要とせずにデータ抽�
 
 開始するには、[https://sheets.google.com](https://sheets.google.com/) に移動し、**+** アイコンを選択して新しいスプレッドシートを作成します。
 
-![Google Sheets new document creation](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-24-1024x241.png)
+![Google Sheets new document creation](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-24-1024x241.png)
 
 Webスクレイピング技術の学習用に特別に設計されたデモサイトである、[**Books to Scrape**](https://books.toscrape.com/catalogue/category/books/default_15/index.html) を使用しましょう。
 
@@ -54,7 +54,7 @@ Google Sheetsには、スプレッドシート内で直接データ抽出を可�
 
 この関数を初めて使用すると、Google Sheetsが外部サイトへ接続するための権限を求めます。
 
-![Google Sheets access permission dialog](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-25-1024x272.png)
+![Google Sheets access permission dialog](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-25-1024x272.png)
 
 **Allow access** をクリックすると、セルにはターゲットページのH1見出し内容である「Default」が表示されます。
 
@@ -74,7 +74,7 @@ Google Sheetsには、スプレッドシート内で直接データ抽出を可�
 
 この数式により、スプレッドシートに書籍リスト全体が入力されます。
 
-![Imported book list in Google Sheets](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-26-1024x557.png)
+![Imported book list in Google Sheets](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-26-1024x557.png)
 
 ## ステップバイステップのデータ抽出ガイド
 
@@ -82,7 +82,7 @@ Google Sheetsには、スプレッドシート内で直接データ抽出を可�
 
 まず、適切な列見出しをスプレッドシートに設定します。
 
-![Google Sheets with column headers](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-27-1024x425.png)
+![Google Sheets with column headers](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-27-1024x425.png)
 
 書籍タイトルの正しいXPathを特定するには、ブラウザの開発者ツールを使用します。
 
@@ -91,7 +91,7 @@ Google Sheetsには、スプレッドシート内で直接データ抽出を可�
 3. ハイライトされたHTML要素を右クリックします
 4. **Copy > XPath** を選択します
 
-![Finding XPath using browser developer tools](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-28-1024x498.png)
+![Finding XPath using browser developer tools](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-28-1024x498.png)
 
 単一の書籍タイトルに対する生のXPathは、次のようになります。
 
@@ -113,7 +113,7 @@ Google Sheetsには、スプレッドシート内で直接データ抽出を可�
 
 シートにはすべての書籍タイトルが入力されます。
 
-![Google Sheets showing imported book titles](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-29-1024x557.png)
+![Google Sheets showing imported book titles](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-29-1024x557.png)
 
 次に、価格データの数式をセルB2に追加します。
 
@@ -129,7 +129,7 @@ Google Sheetsには、スプレッドシート内で直接データ抽出を可�
 
 完成したスプレッドシートには、3つのデータポイントがすべて表示されます。
 
-![Complete spreadsheet with book data](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-30-1024x557.png)
+![Complete spreadsheet with book data](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-30-1024x557.png)
 
 評価が `star-rating Three` や `star-rating Four` として表示される点に注意してください。残念ながら、Google Sheetsは[XPath 2.0](https://www.w3.org/TR/xpath20/)をサポートしていないため、数式内でこのデータを直接変換できません。
 
@@ -155,11 +155,11 @@ Google Sheetsで更新頻度を設定するには、次の手順です。
 2. **Calculation** タブに移動します
 3. 希望する再計算間隔を設定します
 
-![Google Sheets settings menu](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-31-1024x558.png)
+![Google Sheets settings menu](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-31-1024x558.png)
 
 1分または1時間の更新間隔を選択できます。
 
-![Google Sheets recalculation settings](https://github.com/luminati-io/web-scraping-with-google-sheets/blob/main/images/image-32-1024x619.png)
+![Google Sheets recalculation settings](https://github.com/bright-jp/web-scraping-with-google-sheets/blob/main/images/image-32-1024x619.png)
 
 Google Sheetsではこの2つの更新オプションに制限されますが、Bright Dataのような専用スクレイピングソリューションでは、より柔軟なスケジューリングが可能で、複数形式（JSON、CSV、Parquet）でデータを提供できるため、エンタープライズ規模のデータ収集に最適です。
 
